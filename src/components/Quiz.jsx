@@ -13,14 +13,14 @@ import {
   GitMerge
 } from "lucide-react";
 
+import { quizQuestions } from "../data/questions";
+
 const CATEGORY_ICONS = {
   "Gen AI": <Code className="w-5 h-5" />,
   "AWS": <Cloud className="w-5 h-5" />,
   "GitHub": <Github className="w-5 h-5" />,
   "GitLab": <GitMerge className="w-5 h-5" />
 };
-
-import { quizQuestions } from "../data/questions";
 
 export default function Quiz() {
   const [questions, setQuestions] = useState(quizQuestions);
@@ -59,23 +59,6 @@ export default function Quiz() {
     if (aura < 10000) return "Sigma Developer 🗿";
     return "Giga Chad 10X Engineer 🌌";
   };
-
-  useEffect(() => {
-    if (!state.selectedCategory || !state.isHardcore || state.isComplete) return;
-    const hasAnswered = state.answers[currentQuestion?.id] !== undefined;
-    if (hasAnswered) return;
-
-    if (state.timeLeft <= 0) {
-      handleAnswer(-1); // Timeout triggers wrong answer logic
-      return;
-    }
-
-    const timer = setInterval(() => {
-      setState(prev => ({ ...prev, timeLeft: prev.timeLeft - 1 }));
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [state.selectedCategory, state.isHardcore, state.isComplete, state.timeLeft, state.answers, currentQuestion]);
 
   const filteredQuestions = state.selectedCategory && state.selectedCategory !== "All"
     ? questions.filter(q => q.category === state.selectedCategory)
@@ -185,6 +168,23 @@ export default function Quiz() {
       setState(prev => ({ ...prev, isComplete: true }));
     }
   };
+
+  useEffect(() => {
+    if (!state.selectedCategory || !state.isHardcore || state.isComplete) return;
+    const hasAnswered = state.answers[currentQuestion?.id] !== undefined;
+    if (hasAnswered) return;
+
+    if (state.timeLeft <= 0) {
+      handleAnswer(-1); // Timeout triggers wrong answer logic
+      return;
+    }
+
+    const timer = setInterval(() => {
+      setState(prev => ({ ...prev, timeLeft: prev.timeLeft - 1 }));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [state.selectedCategory, state.isHardcore, state.isComplete, state.timeLeft, state.answers, currentQuestion]);
 
   const resetQuiz = () => {
     setState({
