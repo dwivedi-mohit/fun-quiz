@@ -16,6 +16,9 @@ curl -s -L -o "e:\awsquiz\public\sounds\ghop_ghop.mp3" "https://www.myinstants.c
 echo Downloading streak sound (kya cheda)...
 curl -s -L -o "e:\awsquiz\public\sounds\streak.mp3" "https://www.myinstants.com/media/sounds/kya-cheda-bhosdi.mp3"
 
+echo Downloading WASTED permadeath sound...
+curl -s -L -o "e:\awsquiz\public\sounds\wasted.mp3" "https://www.myinstants.com/media/sounds/gta-v-wasted-death-sound.mp3"
+
 echo.
 echo =======================================================
 echo    SUCCESS! All meme sounds are downloaded and 

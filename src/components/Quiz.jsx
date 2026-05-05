@@ -91,7 +91,7 @@ export default function Quiz() {
     if (state.isHardcore && !isCorrect) {
       // PERMADEATH TRIGGERED
       try {
-        new Audio('/sounds/ghop_ghop.mp3').play().catch(e => console.log(e));
+        new Audio('/sounds/wasted.mp3').play().catch(e => console.log(e));
         const utterance = new SpeechSynthesisUtterance("WASTED. Bro did not survive.");
         utterance.pitch = 0.5;
         window.speechSynthesis.speak(utterance);
