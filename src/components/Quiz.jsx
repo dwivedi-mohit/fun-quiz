@@ -35,6 +35,8 @@ export default function Quiz() {
     "Bro really thought that was the answer 💀"
   ];
 
+  const [isHardcoreEnabled, setIsHardcoreEnabled] = useState(false);
+
   const [state, setState] = useState({
     currentQuestionIndex: 0,
     score: 0,
@@ -44,7 +46,10 @@ export default function Quiz() {
     answers: {},
     isComplete: false,
     selectedCategory: null,
-    isDeepFried: false
+    isDeepFried: false,
+    isHardcore: false,
+    permadeathTriggered: false,
+    timeLeft: null
   });
 
   const getAuraRank = (aura) => {
@@ -55,7 +60,22 @@ export default function Quiz() {
     return "Giga Chad 10X Engineer 🌌";
   };
 
-  // Removed fetch useEffect since data is loaded synchronously
+  useEffect(() => {
+    if (!state.selectedCategory || !state.isHardcore || state.isComplete) return;
+    const hasAnswered = state.answers[currentQuestion?.id] !== undefined;
+    if (hasAnswered) return;
+
+    if (state.timeLeft <= 0) {
+      handleAnswer(-1); // Timeout triggers wrong answer logic
+      return;
+    }
+
+    const timer = setInterval(() => {
+      setState(prev => ({ ...prev, timeLeft: prev.timeLeft - 1 }));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [state.selectedCategory, state.isHardcore, state.isComplete, state.timeLeft, state.answers, currentQuestion]);
 
   const filteredQuestions = state.selectedCategory && state.selectedCategory !== "All"
     ? questions.filter(q => q.category === state.selectedCategory)
@@ -73,7 +93,10 @@ export default function Quiz() {
       answers: {},
       isComplete: false,
       selectedCategory: category,
-      isDeepFried: false
+      isDeepFried: false,
+      isHardcore: isHardcoreEnabled,
+      permadeathTriggered: false,
+      timeLeft: isHardcoreEnabled ? 10 : null
     });
   };
 
@@ -81,6 +104,30 @@ export default function Quiz() {
     if (state.answers[currentQuestion.id] !== undefined) return;
 
     const isCorrect = optionIndex === currentQuestion.correctAnswer;
+    
+    if (state.isHardcore && !isCorrect) {
+      // PERMADEATH TRIGGERED
+      try {
+        new Audio('/sounds/ghop_ghop.mp3').play().catch(e => console.log(e));
+        const utterance = new SpeechSynthesisUtterance("WASTED. Bro did not survive.");
+        utterance.pitch = 0.5;
+        window.speechSynthesis.speak(utterance);
+      } catch(e) {}
+      
+      setState(prev => ({
+        ...prev,
+        isComplete: true,
+        permadeathTriggered: true,
+        aura: 0,
+        isDeepFried: true,
+        answers: {
+          ...prev.answers,
+          [currentQuestion.id]: optionIndex
+        }
+      }));
+      return;
+    }
+
     const newStreak = isCorrect ? state.streak + 1 : 0;
     
     const randomRoast = ROASTS[Math.floor(Math.random() * ROASTS.length)];
@@ -131,7 +178,8 @@ export default function Quiz() {
     if (state.currentQuestionIndex < filteredQuestions.length - 1) {
       setState(prev => ({
         ...prev,
-        currentQuestionIndex: prev.currentQuestionIndex + 1
+        currentQuestionIndex: prev.currentQuestionIndex + 1,
+        timeLeft: prev.isHardcore ? 10 : null
       }));
     } else {
       setState(prev => ({ ...prev, isComplete: true }));
@@ -148,7 +196,10 @@ export default function Quiz() {
       answers: {},
       isComplete: false,
       selectedCategory: state.selectedCategory,
-      isDeepFried: false
+      isDeepFried: false,
+      isHardcore: state.isHardcore,
+      permadeathTriggered: false,
+      timeLeft: state.isHardcore ? 10 : null
     });
   };
 
@@ -223,11 +274,56 @@ export default function Quiz() {
             </div>
           </motion.button>
         </div>
+
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+          className="flex justify-center mt-12"
+        >
+          <button 
+            onClick={() => setIsHardcoreEnabled(!isHardcoreEnabled)}
+            className={`px-8 py-4 rounded-full font-black text-xl transition-all duration-300 transform hover:scale-105 ${isHardcoreEnabled ? 'bg-red-600 text-white shadow-[0_0_30px_rgba(220,38,38,0.8)] border border-red-400' : 'bg-black/40 text-gray-400 hover:text-white border border-white/10'}`}
+          >
+            ☠️ HARDCORE PERMADEATH: {isHardcoreEnabled ? "ON" : "OFF"}
+          </button>
+        </motion.div>
       </div>
     );
   }
 
   if (state.isComplete) {
+    if (state.permadeathTriggered) {
+      return (
+        <div className={`max-w-2xl mx-auto p-6 mt-20 text-center transition-all duration-500 ${state.isDeepFried ? 'contrast-200 saturate-[3] sepia-[.5] hue-rotate-15 blur-[1px] scale-105' : ''}`}>
+          <motion.div 
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="glass-panel p-12 rounded-3xl border-red-600/50 bg-red-900/20 shadow-[0_0_50px_rgba(220,38,38,0.4)]"
+          >
+            <h2 className="text-7xl md:text-8xl font-black text-red-500 mb-6 drop-shadow-[0_0_15px_rgba(220,38,38,0.8)]">WASTED ☠️</h2>
+            <p className="text-2xl text-gray-300 mb-2">You only survived <span className="text-white font-bold">{state.currentQuestionIndex}</span> questions.</p>
+            <p className="text-xl text-red-400 mb-10">All Aura Points Lost.</p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button 
+                onClick={resetQuiz}
+                className="px-8 py-4 rounded-2xl bg-red-600 hover:bg-red-500 text-white font-bold flex items-center justify-center gap-2 transition-all shadow-lg"
+              >
+                <RefreshCcw className="w-5 h-5" /> Try Again (If you dare)
+              </button>
+              <button 
+                onClick={() => setState(prev => ({ ...prev, selectedCategory: null }))}
+                className="px-8 py-4 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold transition-all border border-white/5"
+              >
+                Coward's Way Out (Menu)
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      );
+    }
+
     const percentage = Math.round((state.score / filteredQuestions.length) * 100);
     return (
       <div className="max-w-2xl mx-auto p-6 mt-20 text-center">
@@ -285,6 +381,11 @@ export default function Quiz() {
           ← Categories
         </button>
         <div className="flex flex-wrap justify-center gap-3">
+          {state.isHardcore && (
+            <div className={`text-xl font-black px-4 py-2 rounded-full border shadow-inner flex items-center gap-2 transition-colors ${state.timeLeft <= 3 ? 'bg-red-600 text-white border-red-400 animate-pulse' : 'bg-red-500/10 text-red-400 border-red-500/20'}`}>
+              ⏰ {state.timeLeft}s
+            </div>
+          )}
           <div className="text-sm font-bold text-yellow-400 bg-yellow-500/10 border border-yellow-500/20 px-4 py-2 rounded-full shadow-inner flex items-center gap-2">
             Rank: {getAuraRank(state.aura)}
           </div>
