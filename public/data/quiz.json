@@ -1,0 +1,496 @@
+[
+  {
+    "id": "genai-1",
+    "category": "Gen AI",
+    "question": "Which architecture is foundational to modern Large Language Models like GPT-4 and Gemini?",
+    "options": [
+      "Convolutional Neural Network (CNN)",
+      "Transformer",
+      "Recurrent Neural Network (RNN)",
+      "Generative Adversarial Network (GAN)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "The Transformer architecture forms the backbone of modern LLMs because of its highly parallelizable self-attention mechanism."
+  },
+  {
+    "id": "genai-2",
+    "category": "Gen AI",
+    "question": "What is the primary purpose of 'Retrieval-Augmented Generation' (RAG)?",
+    "options": [
+      "To train models faster",
+      "To reduce model parameter size",
+      "To ground model responses in external knowledge",
+      "To generate images"
+    ],
+    "correctAnswer": 2,
+    "explanation": "RAG fetches relevant documents from an external database and provides them to the model as context, reducing hallucinations."
+  },
+  {
+    "id": "aws-1",
+    "category": "AWS",
+    "question": "Which AWS service provides highly durable object storage?",
+    "options": [
+      "Amazon EC2",
+      "Amazon RDS",
+      "Amazon S3",
+      "Amazon VPC"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Amazon Simple Storage Service (S3) is an object storage service offering industry-leading scalability."
+  },
+  {
+    "id": "aws-2",
+    "category": "AWS",
+    "question": "What is the AWS serverless compute service that runs code in response to events?",
+    "options": [
+      "AWS Lambda",
+      "Amazon ECS",
+      "AWS Fargate",
+      "Amazon EKS"
+    ],
+    "correctAnswer": 0,
+    "explanation": "AWS Lambda lets you run code for virtually any type of application without provisioning servers."
+  },
+  {
+    "id": "github-1",
+    "category": "GitHub",
+    "question": "What feature in GitHub automates software workflows, including CI/CD?",
+    "options": [
+      "GitHub Pages",
+      "GitHub Actions",
+      "GitHub Projects",
+      "GitHub Packages"
+    ],
+    "correctAnswer": 1,
+    "explanation": "GitHub Actions makes it easy to automate all your software workflows directly from your GitHub repository."
+  },
+  {
+    "id": "gitlab-1",
+    "category": "GitLab",
+    "question": "What file is used to configure GitLab CI/CD pipelines?",
+    "options": [
+      ".gitlab-ci.yml",
+      "gitlab.config.js",
+      "pipeline.yaml",
+      ".github/workflows/main.yml"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The `.gitlab-ci.yml` file contains the configuration for a GitLab CI/CD pipeline."
+  },
+  {
+    "id": "aws-257a52c7d2b3a6cd",
+    "category": "AWS",
+    "question": "What is EC2?",
+    "options": [
+      "Both A and B",
+      "EC2, a Virtual Machine in the cloud on which you have OS-level control",
+      "None of the above",
+      "This feature is deprecated"
+    ],
+    "correctAnswer": 1,
+    "explanation": "EC2, a Virtual Machine in the cloud on which you have OS-level control. You can run this cloud server whenever you want and can be used when you need to deploy your own servers in the cloud, similar t..."
+  },
+  {
+    "id": "aws-a99f419c34b254dd",
+    "category": "AWS",
+    "question": "What is SnowBall?",
+    "options": [
+      "None of the above",
+      "This feature is deprecated",
+      "SnowBall is a small application that enables you to transfer terabytes of data inside and outside of",
+      "Both A and B"
+    ],
+    "correctAnswer": 2,
+    "explanation": "SnowBall is a small application that enables you to transfer terabytes of data inside and outside of the AWS environment.AWS Snowball..."
+  },
+  {
+    "id": "aws-eb2e0a1bbed9f66c",
+    "category": "AWS",
+    "question": "What is CloudWatch?",
+    "options": [
+      "This feature is deprecated",
+      "CloudWatch helps you to monitor AWS environments like EC2, RDS Instances, and CPU utilization",
+      "Both A and B",
+      "None of the above"
+    ],
+    "correctAnswer": 1,
+    "explanation": "CloudWatch helps you to monitor AWS environments like EC2, RDS Instances, and CPU utilization. It also triggers alarms depending on various metrics.AWS Cloudwatch..."
+  },
+  {
+    "id": "aws-7c80361c24b8fc66",
+    "category": "AWS",
+    "question": "What is Elastic Transcoder?",
+    "options": [
+      "Elastic Transcoder is an AWS Service Tool that helps you in changing a video’s format and resolution",
+      "None of the above",
+      "Both A and B",
+      "This feature is deprecated"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Elastic Transcoder is an AWS Service Tool that helps you in changing a video’s format and resolution to support various devices like tablets, smartphones, and laptops of different resolutions...."
+  },
+  {
+    "id": "aws-37ac852420af23fb",
+    "category": "AWS",
+    "question": "What do you understand by VPC?",
+    "options": [
+      "None of the above",
+      "Both A and B",
+      "This feature is deprecated",
+      "VPC stands for Virtual Private Cloud"
+    ],
+    "correctAnswer": 3,
+    "explanation": "VPC stands for Virtual Private Cloud. It allows you to customize your networking configuration. VPC is a network that is logically isolated from other networks in the cloud. It allows you to have your..."
+  },
+  {
+    "id": "aws-49ef85b598945bc8",
+    "category": "AWS",
+    "question": "DNS and Load Balancer Services come under which type of Cloud Service?",
+    "options": [
+      "DNS and Load Balancer are a part of IaaS-Storage Cloud Service",
+      "This feature is deprecated",
+      "None of the above",
+      "Both A and B"
+    ],
+    "correctAnswer": 0,
+    "explanation": "DNS and Load Balancer are a part of IaaS-Storage Cloud Service...."
+  },
+  {
+    "id": "aws-ed8b9e4ace4894bf",
+    "category": "AWS",
+    "question": "What are the Storage Classes available in Amazon S3?",
+    "options": [
+      "This feature is deprecated",
+      "Both A and B",
+      "None of the above",
+      "Storage Classes available with Amazon S3 are:\nAmazon S3 Standard\nAmazon S3 Standard-Infrequent Acces"
+    ],
+    "correctAnswer": 3,
+    "explanation": "Storage Classes available with Amazon S3 are:\nAmazon S3 Standard\nAmazon S3 Standard-Infrequent Access\nAmazon S3 Reduced Redundancy Storage\nAmazon Glacier..."
+  },
+  {
+    "id": "aws-50fcda52e5597b8c",
+    "category": "AWS",
+    "question": "Explain what T2 instances are?",
+    "options": [
+      "This feature is deprecated",
+      "T2 Instances are designed to provide moderate baseline performance and the capability to burst to hi",
+      "None of the above",
+      "Both A and B"
+    ],
+    "correctAnswer": 1,
+    "explanation": "T2 Instances are designed to provide moderate baseline performance and the capability to burst to higher performance as required by the workload...."
+  },
+  {
+    "id": "aws-113f136c56c7e6f5",
+    "category": "AWS",
+    "question": "What are Key-Pairs in AWS?",
+    "options": [
+      "Both A and B",
+      "Key-Pairs are secure login information for your Virtual Machines",
+      "None of the above",
+      "This feature is deprecated"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Key-Pairs are secure login information for your Virtual Machines. To connect to the instances, you can use Key-Pairs which contain a Public Key and a Private Key...."
+  },
+  {
+    "id": "aws-b7845ff2b1635523",
+    "category": "AWS",
+    "question": "How many Subnets can you have per VPC?",
+    "options": [
+      "You can have 200 Subnets per VPC",
+      "None of the above",
+      "This feature is deprecated",
+      "Both A and B"
+    ],
+    "correctAnswer": 0,
+    "explanation": "You can have 200 Subnets per VPC...."
+  },
+  {
+    "id": "aws-d2c50eaf07b474d5",
+    "category": "AWS",
+    "question": "Explain what S3 is?",
+    "options": [
+      "S3 stands for Simple Storage Service",
+      "This feature is deprecated",
+      "None of the above",
+      "Both A and B"
+    ],
+    "correctAnswer": 0,
+    "explanation": "S3 stands for Simple Storage Service. You can use the S3 interface to store and retrieve any amount of data, at any time and from anywhere on the web. For S3, the payment model is “pay as you go”...."
+  },
+  {
+    "id": "aws-b1f3cfe784aa7a42",
+    "category": "AWS",
+    "question": "How does Amazon Route 53 provide high availability and low latency?",
+    "options": [
+      "Both A and B",
+      "None of the above",
+      "This feature is deprecated",
+      "Amazon Route 53 uses the following to provide high availability and low latency:\n\nGlobally Distribut"
+    ],
+    "correctAnswer": 3,
+    "explanation": "Amazon Route 53 uses the following to provide high availability and low latency:\n\nGlobally Distributed Servers - Amazon is a global service and consequently has DNS Servers globally. Any customer crea..."
+  },
+  {
+    "id": "aws-681d1270e1573595",
+    "category": "AWS",
+    "question": "How can you send a request to Amazon S3?",
+    "options": [
+      "This feature is deprecated",
+      "Both A and B",
+      "None of the above",
+      "Amazon S3 is a REST Service, and you can send a request by using the REST API or the AWS SDK wrapper"
+    ],
+    "correctAnswer": 3,
+    "explanation": "Amazon S3 is a REST Service, and you can send a request by using the REST API or the AWS SDK wrapper libraries that wrap the underlying Amazon S3 REST API...."
+  },
+  {
+    "id": "aws-60c25ecb859286d3",
+    "category": "AWS",
+    "question": "What does AMI include?",
+    "options": [
+      "Both A and B",
+      "None of the above",
+      "This feature is deprecated",
+      "An AMI includes the following things:\nA template for the root volume for the instance"
+    ],
+    "correctAnswer": 3,
+    "explanation": "An AMI includes the following things:\nA template for the root volume for the instance.\nLaunch permissions to decide which AWS accounts can avail the AMI to launch instances.\nA block device mapping tha..."
+  },
+  {
+    "id": "aws-5d0de72ba42d3887",
+    "category": "AWS",
+    "question": "What are the different types of Instances?",
+    "options": [
+      "None of the above",
+      "This feature is deprecated",
+      "Both A and B",
+      "Following are the types of instances:\nCompute Optimized\nMemory-Optimized\nStorage Optimized\nAccelerat"
+    ],
+    "correctAnswer": 3,
+    "explanation": "Following are the types of instances:\nCompute Optimized\nMemory-Optimized\nStorage Optimized\nAccelerated Computing\nGeneral Purpose..."
+  },
+  {
+    "id": "aws-b9e979a90e8d391c",
+    "category": "AWS",
+    "question": "What is the relation between the Availability Zone and Region?",
+    "options": [
+      "This feature is deprecated",
+      "An AWS Availability Zone is a physical location where an Amazon data center is located",
+      "Both A and B",
+      "None of the above"
+    ],
+    "correctAnswer": 1,
+    "explanation": "An AWS Availability Zone is a physical location where an Amazon data center is located. On the other hand, an AWS Region is a collection or group of Availability Zones or Data Centers. This setup help..."
+  },
+  {
+    "id": "aws-0abe746c48f67709",
+    "category": "AWS",
+    "question": "How do you monitor Amazon VPC?",
+    "options": [
+      "You can monitor Amazon VPC using:\nCloudWatch\nVPC Flow Logs",
+      "None of the above",
+      "Both A and B",
+      "This feature is deprecated"
+    ],
+    "correctAnswer": 0,
+    "explanation": "You can monitor Amazon VPC using:\nCloudWatch\nVPC Flow Logs..."
+  },
+  {
+    "id": "aws-e7a0372e48b1fee8",
+    "category": "AWS",
+    "question": "What are the different types of EC2 instances based on their costs?",
+    "options": [
+      "Both A and B",
+      "This feature is deprecated",
+      "The three types of EC2 instances based on the costs are:On-Demand Instance - These instances are pre",
+      "None of the above"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The three types of EC2 instances based on the costs are:On-Demand Instance - These instances are prepared as and when needed. Whenever you feel the need for a new EC2 instance, you can go ahead and cr..."
+  },
+  {
+    "id": "aws-d096e5852486713e",
+    "category": "AWS",
+    "question": "What do you understand by stopping and terminating an EC2 Instance?",
+    "options": [
+      "Both A and B",
+      "None of the above",
+      "This feature is deprecated",
+      "Stopping an EC2 instance means to shut it down as you would normally do on your Personal Computer"
+    ],
+    "correctAnswer": 3,
+    "explanation": "Stopping an EC2 instance means to shut it down as you would normally do on your Personal Computer. This will not delete any volumes attached to the instance and the instance can be started again when ..."
+  },
+  {
+    "id": "aws-e452074f2618a4dd",
+    "category": "AWS",
+    "question": "What are the consistency models for modern DBs offered by AWS?",
+    "options": [
+      "None of the above",
+      "Both A and B",
+      "This feature is deprecated",
+      "Eventual Consistency - It means that the data will be consistent eventually, but may not be immediat"
+    ],
+    "correctAnswer": 3,
+    "explanation": "Eventual Consistency - It means that the data will be consistent eventually, but may not be immediate. This will serve the client requests faster, but chances are that some of the initial read request..."
+  },
+  {
+    "id": "aws-b44c6138c90e54dc",
+    "category": "AWS",
+    "question": "What is Geo-Targeting in CloudFront?",
+    "options": [
+      "Geo-Targeting enables the creation of customized content based on the geographic location of the use",
+      "None of the above",
+      "Both A and B",
+      "This feature is deprecated"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Geo-Targeting enables the creation of customized content based on the geographic location of the user. This allows you to serve the content which is more relevant to a user. For example, using Geo-Tar..."
+  },
+  {
+    "id": "aws-63857ec754ea3a75",
+    "category": "AWS",
+    "question": "What are the advantages of AWS IAM?",
+    "options": [
+      "Both A and B",
+      "None of the above",
+      "This feature is deprecated",
+      "AWS IAM enables an administrator to provide granular level access to different users and groups"
+    ],
+    "correctAnswer": 3,
+    "explanation": "AWS IAM enables an administrator to provide granular level access to different users and groups. Different users and user groups may need different levels of access to different resources created. Wit..."
+  },
+  {
+    "id": "aws-743a4c0d9b5d41a4",
+    "category": "AWS",
+    "question": "What do you understand by a Security Group?",
+    "options": [
+      "This feature is deprecated",
+      "When you create an instance in AWS, you may or may not want that instance to be accessible from the ",
+      "None of the above",
+      "Both A and B"
+    ],
+    "correctAnswer": 1,
+    "explanation": "When you create an instance in AWS, you may or may not want that instance to be accessible from the public network. Moreover, you may want that instance to be accessible from some networks and not fro..."
+  },
+  {
+    "id": "aws-9e45652ff413acdc",
+    "category": "AWS",
+    "question": "What are Spot Instances and On-Demand Instances?",
+    "options": [
+      "When AWS creates EC2 instances, there are some blocks of computing capacity and processing power lef",
+      "This feature is deprecated",
+      "Both A and B",
+      "None of the above"
+    ],
+    "correctAnswer": 0,
+    "explanation": "When AWS creates EC2 instances, there are some blocks of computing capacity and processing power left unused. AWS releases these blocks as Spot Instances. Spot Instances run whenever capacity is avail..."
+  },
+  {
+    "id": "aws-c37b6979a9be04cb",
+    "category": "AWS",
+    "question": "What is a Stateful and a Stateless Firewall?",
+    "options": [
+      "A Stateful Firewall is the one that maintains the state of the rules defined",
+      "This feature is deprecated",
+      "Both A and B",
+      "None of the above"
+    ],
+    "correctAnswer": 0,
+    "explanation": "A Stateful Firewall is the one that maintains the state of the rules defined. It requires you to define only inbound rules. Based on the inbound rules defined, it automatically allows the outbound tra..."
+  },
+  {
+    "id": "aws-7f8e96d490b25522",
+    "category": "AWS",
+    "question": "What is a Power User Access in AWS?",
+    "options": [
+      "None of the above",
+      "Both A and B",
+      "An Administrator User will be similar to the owner of the AWS Resources",
+      "This feature is deprecated"
+    ],
+    "correctAnswer": 2,
+    "explanation": "An Administrator User will be similar to the owner of the AWS Resources. He can create, delete, modify or view the resources and also grant permissions to other users for the AWS Resources.A Power Use..."
+  },
+  {
+    "id": "aws-e5ceb2657c46dae2",
+    "category": "AWS",
+    "question": "What is an Instance Store Volume and an EBS Volume?",
+    "options": [
+      "An Instance Store Volume is temporary storage that is used to store the temporary data required by a",
+      "None of the above",
+      "Both A and B",
+      "This feature is deprecated"
+    ],
+    "correctAnswer": 0,
+    "explanation": "An Instance Store Volume is temporary storage that is used to store the temporary data required by an instance to function. The data is available as long as the instance is running. As soon as the ins..."
+  },
+  {
+    "id": "aws-a9b667881118953b",
+    "category": "AWS",
+    "question": "What are Recovery Time Objective and Recovery Point Objective in AWS?",
+    "options": [
+      "This feature is deprecated",
+      "Recovery Time Objective - It is the maximum acceptable delay between the interruption of service and",
+      "None of the above",
+      "Both A and B"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Recovery Time Objective - It is the maximum acceptable delay between the interruption of service and restoration of service. This translates to an acceptable time window when the service can be unavai..."
+  },
+  {
+    "id": "aws-72cab06c6e25cfb0",
+    "category": "AWS",
+    "question": "Is there a way to upload a file that is greater than 100 Megabytes in Amazon S3?",
+    "options": [
+      "None of the above",
+      "This feature is deprecated",
+      "Both A and B",
+      "Yes, it is possible by using the Multipart Upload Utility from AWS"
+    ],
+    "correctAnswer": 3,
+    "explanation": "Yes, it is possible by using the Multipart Upload Utility from AWS. With the Multipart Upload Utility, larger files can be uploaded in multiple parts that are uploaded independently. You can also decr..."
+  },
+  {
+    "id": "aws-5fd49ae096199a10",
+    "category": "AWS",
+    "question": "Can you change the Private IP Address of an EC2 instance while it is running or in a stopped state?",
+    "options": [
+      "Both A and B",
+      "This feature is deprecated",
+      "None of the above",
+      "No, a Private IP Address of an EC2 instance cannot be changed"
+    ],
+    "correctAnswer": 3,
+    "explanation": "No, a Private IP Address of an EC2 instance cannot be changed. When an EC2 instance is launched, a private IP Address is assigned to that instance at the boot time. This private IP Address is attached..."
+  },
+  {
+    "id": "aws-35c7e62a93bb675c",
+    "category": "AWS",
+    "question": "What is the use of lifecycle hooks is Autoscaling?",
+    "options": [
+      "Both A and B",
+      "None of the above",
+      "This feature is deprecated",
+      "Lifecycle hooks are used for Auto-scaling to put an additional wait time to a scale-in or a scale-ou"
+    ],
+    "correctAnswer": 3,
+    "explanation": "Lifecycle hooks are used for Auto-scaling to put an additional wait time to a scale-in or a scale-out event...."
+  },
+  {
+    "id": "aws-bb6a47183542d992",
+    "category": "AWS",
+    "question": "What are the policies that you can set for your user’s passwords?",
+    "options": [
+      "Following are the policies that can be set for user’s passwords:\nYou can set a minimum length of the",
+      "This feature is deprecated",
+      "None of the above",
+      "Both A and B"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Following are the policies that can be set for user’s passwords:\nYou can set a minimum length of the password.\nYou can ask the users to add at least one number or special character to the password.\nAs..."
+  }
+]
