@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  Trophy, 
-  RefreshCcw, 
-  CheckCircle2, 
-  XCircle, 
+import {
+  Trophy,
+  RefreshCcw,
+  CheckCircle2,
+  XCircle,
   ChevronRight,
   Loader2,
   Code,
@@ -87,16 +87,20 @@ export default function Quiz() {
     if (state.answers[currentQuestion.id] !== undefined) return;
 
     const isCorrect = optionIndex === currentQuestion.correctAnswer;
-    
+
     if (state.isHardcore && !isCorrect) {
       // PERMADEATH TRIGGERED
       try {
-        new Audio('/sounds/wasted.mp3').play().catch(e => console.log(e));
+        const wastedSfx = new Audio('/sounds/wasted.mp3');
+        wastedSfx.volume = 1.0;
+        wastedSfx.play().catch(e => console.log(e));
+        
         const utterance = new SpeechSynthesisUtterance("WASTED. Bro did not survive.");
         utterance.pitch = 0.5;
+        utterance.volume = 0.4; // Lower AI volume so the Wasted sound cuts through
         window.speechSynthesis.speak(utterance);
-      } catch(e) {}
-      
+      } catch (e) { }
+
       setState(prev => ({
         ...prev,
         isComplete: true,
@@ -112,7 +116,7 @@ export default function Quiz() {
     }
 
     const newStreak = isCorrect ? state.streak + 1 : 0;
-    
+
     const randomRoast = ROASTS[Math.floor(Math.random() * ROASTS.length)];
 
     // Sound Effects Logic
@@ -125,7 +129,7 @@ export default function Quiz() {
         }
       } else {
         new Audio('/sounds/ghop_ghop.mp3').play().catch(e => console.log('Audio disabled by browser', e));
-        
+
         // Robot Voice speaks the roast out loud!
         const utterance = new SpeechSynthesisUtterance(randomRoast);
         utterance.pitch = 0.5; // low pitch
@@ -214,7 +218,7 @@ export default function Quiz() {
   if (!state.selectedCategory) {
     return (
       <div className="max-w-4xl mx-auto p-6 mt-12">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-12"
@@ -275,13 +279,13 @@ export default function Quiz() {
           </motion.button>
         </div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
           className="flex justify-center mt-12"
         >
-          <button 
+          <button
             onClick={() => setIsHardcoreEnabled(!isHardcoreEnabled)}
             className={`px-8 py-4 rounded-full font-black text-xl transition-all duration-300 transform hover:scale-105 ${isHardcoreEnabled ? 'bg-red-600 text-white shadow-[0_0_30px_rgba(220,38,38,0.8)] border border-red-400' : 'bg-black/40 text-gray-400 hover:text-white border border-white/10'}`}
           >
@@ -296,7 +300,7 @@ export default function Quiz() {
     if (state.permadeathTriggered) {
       return (
         <div className={`max-w-2xl mx-auto p-6 mt-20 text-center transition-all duration-500 ${state.isDeepFried ? 'contrast-200 saturate-[3] sepia-[.5] hue-rotate-15 blur-[1px] scale-105' : ''}`}>
-          <motion.div 
+          <motion.div
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             className="glass-panel p-12 rounded-3xl border-red-600/50 bg-red-900/20 shadow-[0_0_50px_rgba(220,38,38,0.4)]"
@@ -304,15 +308,15 @@ export default function Quiz() {
             <h2 className="text-7xl md:text-8xl font-black text-red-500 mb-6 drop-shadow-[0_0_15px_rgba(220,38,38,0.8)]">WASTED ☠️</h2>
             <p className="text-2xl text-gray-300 mb-2">You only survived <span className="text-white font-bold">{state.currentQuestionIndex}</span> questions.</p>
             <p className="text-xl text-red-400 mb-10">All Aura Points Lost.</p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button 
+              <button
                 onClick={resetQuiz}
                 className="px-8 py-4 rounded-2xl bg-red-600 hover:bg-red-500 text-white font-bold flex items-center justify-center gap-2 transition-all shadow-lg"
               >
                 <RefreshCcw className="w-5 h-5" /> Try Again (If you dare)
               </button>
-              <button 
+              <button
                 onClick={() => setState(prev => ({ ...prev, selectedCategory: null }))}
                 className="px-8 py-4 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold transition-all border border-white/5"
               >
@@ -327,7 +331,7 @@ export default function Quiz() {
     const percentage = Math.round((state.score / filteredQuestions.length) * 100);
     return (
       <div className="max-w-2xl mx-auto p-6 mt-20 text-center">
-        <motion.div 
+        <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           className="glass-panel p-12 rounded-3xl"
@@ -346,15 +350,15 @@ export default function Quiz() {
           </div>
           <p className="text-2xl text-gray-300 mb-2">You scored <span className="text-purple-400 font-bold">{state.score}</span> out of {filteredQuestions.length} ({percentage}%)</p>
           <p className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 mb-10">✨ {state.aura} Aura Points</p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button 
+            <button
               onClick={resetQuiz}
               className="px-8 py-4 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-medium flex items-center justify-center gap-2 transition-all border border-white/5"
             >
               <RefreshCcw className="w-5 h-5" /> Try Again
             </button>
-            <button 
+            <button
               onClick={() => setState(prev => ({ ...prev, selectedCategory: null }))}
               className="px-8 py-4 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold transition-all shadow-lg shadow-purple-500/25"
             >
@@ -374,7 +378,7 @@ export default function Quiz() {
   return (
     <div className={`max-w-4xl mx-auto p-6 mt-8 transition-all duration-200 ${state.isDeepFried ? 'contrast-200 saturate-[3] sepia-[.5] hue-rotate-15 blur-[1px] scale-105' : ''}`}>
       <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4">
-        <button 
+        <button
           onClick={() => setState(prev => ({ ...prev, selectedCategory: null }))}
           className="text-sm font-medium text-gray-400 hover:text-white transition-colors flex items-center gap-2 bg-white/5 px-4 py-2 rounded-full border border-white/10"
         >
@@ -397,7 +401,7 @@ export default function Quiz() {
           </div>
           <AnimatePresence>
             {state.streak >= 2 && (
-              <motion.div 
+              <motion.div
                 initial={{ scale: 0, rotate: -10 }}
                 animate={{ scale: 1, rotate: 0 }}
                 exit={{ scale: 0 }}
@@ -423,7 +427,7 @@ export default function Quiz() {
             {CATEGORY_ICONS[currentQuestion.category]}
             <span className="font-semibold tracking-wide uppercase text-sm">{currentQuestion.category}</span>
           </div>
-          
+
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-10 leading-relaxed">
             {currentQuestion.question}
           </h2>
@@ -432,9 +436,9 @@ export default function Quiz() {
             {currentQuestion.options.map((option, idx) => {
               const isSelected = selectedAnswer === idx;
               const isCorrect = currentQuestion.correctAnswer === idx;
-              
+
               let optionClasses = "border-white/10 bg-white/5 hover:bg-white/10 text-gray-200 hover:border-purple-500/50";
-              
+
               if (hasAnswered) {
                 if (isCorrect) optionClasses = "border-green-500/50 bg-green-500/10 text-green-400 shadow-[0_0_15px_rgba(34,197,94,0.15)]";
                 else if (isSelected) optionClasses = "border-red-500/50 bg-red-500/10 text-red-400";
@@ -467,7 +471,7 @@ export default function Quiz() {
               >
                 <div className="p-6 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-100 mb-8 backdrop-blur-md">
                   {state.roast && (
-                    <motion.p 
+                    <motion.p
                       initial={{ scale: 0.8 }} animate={{ scale: 1 }}
                       className="text-2xl font-black text-red-400 mb-4 uppercase drop-shadow-md"
                     >
@@ -475,7 +479,7 @@ export default function Quiz() {
                     </motion.p>
                   )}
                   {!state.roast && (
-                    <motion.p 
+                    <motion.p
                       initial={{ scale: 0.8 }} animate={{ scale: 1 }}
                       className="text-2xl font-black text-green-400 mb-4 uppercase drop-shadow-md"
                     >
