@@ -25,14 +25,35 @@ import { quizQuestions } from "../data/questions";
 export default function Quiz() {
   const [questions, setQuestions] = useState(quizQuestions);
   const [loading, setLoading] = useState(false); // No longer loading from fetch
+  const ROASTS = [
+    "Bro is literally cooked 💀",
+    "Negative Aura unlocked 😭",
+    "My grandma codes better than you 💅",
+    "Did you even read the docs? 🤡",
+    "Massive Skill Issue 📉",
+    "Take the L and pack it up bro 🛑",
+    "Bro really thought that was the answer 💀"
+  ];
+
   const [state, setState] = useState({
     currentQuestionIndex: 0,
     score: 0,
+    aura: 0,
+    roast: "",
     streak: 0,
     answers: {},
     isComplete: false,
-    selectedCategory: null
+    selectedCategory: null,
+    isDeepFried: false
   });
+
+  const getAuraRank = (aura) => {
+    if (aura <= -10000) return "Cooked NPC 💀";
+    if (aura < 0) return "Average Ohio Resident 🚜";
+    if (aura < 5000) return "Beta Coder 🤓";
+    if (aura < 10000) return "Sigma Developer 🗿";
+    return "Giga Chad 10X Engineer 🌌";
+  };
 
   // Removed fetch useEffect since data is loaded synchronously
 
@@ -46,10 +67,13 @@ export default function Quiz() {
     setState({
       currentQuestionIndex: 0,
       score: 0,
+      aura: 0,
+      roast: "",
       streak: 0,
       answers: {},
       isComplete: false,
-      selectedCategory: category
+      selectedCategory: category,
+      isDeepFried: false
     });
   };
 
@@ -59,6 +83,8 @@ export default function Quiz() {
     const isCorrect = optionIndex === currentQuestion.correctAnswer;
     const newStreak = isCorrect ? state.streak + 1 : 0;
     
+    const randomRoast = ROASTS[Math.floor(Math.random() * ROASTS.length)];
+
     // Sound Effects Logic
     try {
       if (isCorrect) {
@@ -69,6 +95,12 @@ export default function Quiz() {
         }
       } else {
         new Audio('/sounds/ghop_ghop.mp3').play().catch(e => console.log('Audio disabled by browser', e));
+        
+        // Robot Voice speaks the roast out loud!
+        const utterance = new SpeechSynthesisUtterance(randomRoast);
+        utterance.pitch = 0.5; // low pitch
+        utterance.rate = 1.2; // fast
+        window.speechSynthesis.speak(utterance);
       }
     } catch (err) {
       console.log('Audio error:', err);
@@ -77,12 +109,22 @@ export default function Quiz() {
     setState(prev => ({
       ...prev,
       score: isCorrect ? prev.score + 1 : prev.score,
+      aura: isCorrect ? prev.aura + 1000 : prev.aura - 5000,
+      roast: !isCorrect ? randomRoast : "",
       streak: newStreak,
+      isDeepFried: !isCorrect,
       answers: {
         ...prev.answers,
         [currentQuestion.id]: optionIndex
       }
     }));
+
+    // Remove deep fried effect after 1.5s
+    if (!isCorrect) {
+      setTimeout(() => {
+        setState(prev => ({ ...prev, isDeepFried: false }));
+      }, 1500);
+    }
   };
 
   const handleNext = () => {
@@ -100,10 +142,13 @@ export default function Quiz() {
     setState({
       currentQuestionIndex: 0,
       score: 0,
+      aura: 0,
+      roast: "",
       streak: 0,
       answers: {},
       isComplete: false,
-      selectedCategory: state.selectedCategory
+      selectedCategory: state.selectedCategory,
+      isDeepFried: false
     });
   };
 
@@ -198,8 +243,13 @@ export default function Quiz() {
           >
             <Trophy className="w-24 h-24 mx-auto text-yellow-400 mb-8 drop-shadow-[0_0_15px_rgba(250,204,21,0.5)]" />
           </motion.div>
-          <h2 className="text-5xl font-extrabold text-white mb-4">Quiz Complete!</h2>
-          <p className="text-2xl text-gray-300 mb-10">You scored <span className="text-purple-400 font-bold">{state.score}</span> out of {filteredQuestions.length} ({percentage}%)</p>
+          <h2 className="text-5xl font-extrabold text-white mb-4">Bro's Final Aura 💀</h2>
+          <div className="mb-6 inline-block bg-white/10 px-6 py-2 rounded-full border border-white/20">
+            <span className="text-lg text-gray-400">Final Rank: </span>
+            <span className="text-2xl font-bold text-yellow-400 tracking-wide">{getAuraRank(state.aura)}</span>
+          </div>
+          <p className="text-2xl text-gray-300 mb-2">You scored <span className="text-purple-400 font-bold">{state.score}</span> out of {filteredQuestions.length} ({percentage}%)</p>
+          <p className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 mb-10">✨ {state.aura} Aura Points</p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button 
@@ -226,20 +276,23 @@ export default function Quiz() {
   const selectedAnswer = state.answers[currentQuestion.id];
 
   return (
-    <div className="max-w-4xl mx-auto p-6 mt-8">
-      <div className="flex items-center justify-between mb-8">
+    <div className={`max-w-4xl mx-auto p-6 mt-8 transition-all duration-200 ${state.isDeepFried ? 'contrast-200 saturate-[3] sepia-[.5] hue-rotate-15 blur-[1px] scale-105' : ''}`}>
+      <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4">
         <button 
           onClick={() => setState(prev => ({ ...prev, selectedCategory: null }))}
           className="text-sm font-medium text-gray-400 hover:text-white transition-colors flex items-center gap-2 bg-white/5 px-4 py-2 rounded-full border border-white/10"
         >
           ← Categories
         </button>
-        <div className="flex gap-4">
+        <div className="flex flex-wrap justify-center gap-3">
+          <div className="text-sm font-bold text-yellow-400 bg-yellow-500/10 border border-yellow-500/20 px-4 py-2 rounded-full shadow-inner flex items-center gap-2">
+            Rank: {getAuraRank(state.aura)}
+          </div>
           <div className="text-sm font-bold text-purple-400 bg-purple-500/10 border border-purple-500/20 px-4 py-2 rounded-full shadow-inner">
             Q {state.currentQuestionIndex + 1} / {filteredQuestions.length}
           </div>
-          <div className="text-sm font-bold text-pink-400 bg-pink-500/10 border border-pink-500/20 px-4 py-2 rounded-full shadow-inner">
-            Score: {state.score}
+          <div className="text-sm font-bold text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 px-4 py-2 rounded-full shadow-inner flex items-center gap-1">
+            ✨ Aura: {state.aura}
           </div>
           <AnimatePresence>
             {state.streak >= 2 && (
@@ -260,12 +313,12 @@ export default function Quiz() {
         <motion.div
           key={currentQuestion.id}
           initial={{ x: 30, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
+          animate={hasAnswered && state.roast ? { x: [-10, 10, -10, 10, 0], opacity: 1 } : { x: 0, opacity: 1 }}
           exit={{ x: -30, opacity: 0 }}
           transition={{ duration: 0.4, type: "spring", bounce: 0.2 }}
           className="glass-panel rounded-[2rem] p-8 md:p-12"
         >
-          <div className="flex items-center gap-3 mb-8 bg-white/5 inline-flex px-4 py-2 rounded-full border border-white/10 text-gray-300">
+          <div className="flex flex-wrap items-center gap-3 mb-8 bg-white/5 inline-flex px-4 py-2 rounded-full border border-white/10 text-gray-300">
             {CATEGORY_ICONS[currentQuestion.category]}
             <span className="font-semibold tracking-wide uppercase text-sm">{currentQuestion.category}</span>
           </div>
@@ -312,8 +365,24 @@ export default function Quiz() {
                 className="overflow-hidden mt-8"
               >
                 <div className="p-6 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-100 mb-8 backdrop-blur-md">
+                  {state.roast && (
+                    <motion.p 
+                      initial={{ scale: 0.8 }} animate={{ scale: 1 }}
+                      className="text-2xl font-black text-red-400 mb-4 uppercase drop-shadow-md"
+                    >
+                      {state.roast} (-5000 AURA 📉)
+                    </motion.p>
+                  )}
+                  {!state.roast && (
+                    <motion.p 
+                      initial={{ scale: 0.8 }} animate={{ scale: 1 }}
+                      className="text-2xl font-black text-green-400 mb-4 uppercase drop-shadow-md"
+                    >
+                      W Mans (+1000 AURA ✨)
+                    </motion.p>
+                  )}
                   <p className="font-bold text-blue-400 mb-2 uppercase tracking-wide text-sm flex items-center gap-2">
-                    <CheckCircle2 className="w-4 h-4" /> Why is this correct?
+                    <CheckCircle2 className="w-4 h-4" /> Why is this actually correct? fr fr.
                   </p>
                   <p className="text-lg leading-relaxed">{currentQuestion.explanation}</p>
                 </div>
@@ -321,7 +390,7 @@ export default function Quiz() {
                   onClick={handleNext}
                   className="w-full py-5 rounded-2xl bg-white text-black hover:bg-gray-200 font-extrabold text-xl transition-all shadow-xl shadow-white/10 flex items-center justify-center gap-2"
                 >
-                  {state.currentQuestionIndex < filteredQuestions.length - 1 ? "Next Question" : "View Final Results"}
+                  {state.currentQuestionIndex < filteredQuestions.length - 1 ? "Next Question 💅" : "View Final Results 💀"}
                   <ChevronRight className="w-6 h-6" />
                 </button>
               </motion.div>
